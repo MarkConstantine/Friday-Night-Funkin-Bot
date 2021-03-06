@@ -1,2 +1,3 @@
 .vscode
-*.png
+debug.png
+__pycache__
