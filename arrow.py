@@ -4,9 +4,6 @@ from PIL import Image
 
 red_rgb = (255, 0, 0)
 green_rgb = (0, 255, 0)
-blue_rgb = (0, 0, 255)
-arrow_rgb = (135, 163, 173)
-arrow_edge_rgb = (0, 0, 0)
 RIGHT, UP, DOWN, LEFT = 0, 1, 2, 3
 
 
@@ -26,10 +23,12 @@ def _is_grey(rgb, saturation_threshold=0.2):
 
 
 def is_arrow(rgb):
+    arrow_rgb = (135, 163, 173)
     return _color_check(rgb, arrow_rgb)
 
 
 def is_arrow_edge(rgb):
+    arrow_edge_rgb = (0, 0, 0)
     return _color_check(rgb, arrow_edge_rgb)
 
 
@@ -108,19 +107,19 @@ def search(image):
     print(arrow_coordinates)
     for arrow_id, xy in arrow_coordinates.items():
         plus_size = 5
-        color = blue_rgb
+        plus_rgb = (255, 0, 255)
         x, y = xy
 
         # Draw plus onto debug_image to easily identify chosen arrow pixels
-        debug_image.putpixel(xy, color)
+        debug_image.putpixel(xy, plus_rgb)
         for i in range(x, x - plus_size, -1):
-            debug_image.putpixel((i, y), color)
+            debug_image.putpixel((i, y), plus_rgb)
         for i in range(x, x + plus_size):
-            debug_image.putpixel((i, y), color)
+            debug_image.putpixel((i, y), plus_rgb)
         for j in range(y, y - plus_size, -1):
-            debug_image.putpixel((x, j), color)
+            debug_image.putpixel((x, j), plus_rgb)
         for j in range(y, y + plus_size):
-            debug_image.putpixel((x, j), color)
+            debug_image.putpixel((x, j), plus_rgb)
     debug_image.save("debug.png")
     # ===============
 
