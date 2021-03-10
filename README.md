@@ -6,13 +6,17 @@ A bot designed to play the [Friday Night Funkin](https://ninja-muffin24.itch.io/
 
 ## Requirements
 
+* Windows 10 OS
 * [Python 3.9.2](https://www.python.org/downloads/)
-* Pillow 8.1.0
-  * `pip install pillow`
+* pillow 8.1.0
+  * `pip install pillow==8.1.0`
+* keyboard 0.13.5
+  * `pip install keyboard=0.13.5`
+* _(Works best with a 144+ hz monitor running the game at 144+ fps)_
 
 ## How to use
 
-1. Download the requirements and run the bot: `python play.py`
-2. After selecting a song/week, press `~` on your keyboard to start the bot **once all of the player's arrows are on screen**. _(you must manually start/stop the bot per song/week)_
+1. Download the necessary python modules and run the bot: `python play.py`
+2. Press `~` on your keyboard to start the bot **once all of the player's arrows are fully rendered on screen**. _(you must manually start/stop the bot per song/week)_
 3. Sit back and enjoy!
 4. Press `~` to stop the bot
