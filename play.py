@@ -7,18 +7,12 @@ start_stop_key = "~"
 press_release_sleep_ms = 10
 loop_sleep_ms = 20
 
-def press_key(key):
+
+def press_release(key):
     keyboard.press(key)
     time.sleep(press_release_sleep_ms / 1000)
     keyboard.release(key)
-    print(key)
 
-press = {
-    arrow.RIGHT: lambda: press_key("right arrow"),
-    arrow.UP: lambda: press_key("up arrow"),
-    arrow.DOWN: lambda: press_key("down arrow"),
-    arrow.LEFT: lambda: press_key("left arrow")
-}
 
 def get_bounding_box(pixels, spacing=100):
     left_x = min(pixels, key=lambda x: x[0])[0] - spacing
@@ -29,27 +23,44 @@ def get_bounding_box(pixels, spacing=100):
     print("bounding box {bbox}", bbox)
     return bbox
 
-print("Press {} to start/stop".format(start_stop_key))
 
-while True:
-    keyboard.wait(start_stop_key)
+press_key = {
+    arrow.RIGHT: lambda: press_release("right arrow"),
+    arrow.UP: lambda: press_release("up arrow"),
+    arrow.DOWN: lambda: press_release("down arrow"),
+    arrow.LEFT: lambda: press_release("left arrow")
+}
 
-    arrow_xy = arrow.search(ImageGrab.grab())
-    if arrow_xy is None:
-        print("Arrow search could not find the player's arrows")
-        continue
+print_key = {
+    arrow.RIGHT: lambda: print("   →"),
+    arrow.UP: lambda: print("  ↑"),
+    arrow.DOWN: lambda: print(" ↓"),
+    arrow.LEFT: lambda: print("←")
+}
 
-    bounding_box = get_bounding_box(arrow_xy.values())
+if __name__ == "__main__":
+    print("Press {} to start/stop".format(start_stop_key))
 
-    while not keyboard.is_pressed(start_stop_key):
-        img = ImageGrab.grab(bbox=bounding_box)
-        for arrow_id, xy in arrow_xy.items():
-            x, y = xy
-            rgb = img.getpixel((x - bounding_box[0], y - bounding_box[1]))
-            if arrow.is_active(rgb):
-                press[arrow_id]()
-                time.sleep(loop_sleep_ms / 1000)
+    while True:
+        keyboard.wait(start_stop_key)
 
-    print("Stopping")
+        arrow_xy = arrow.search(ImageGrab.grab())
+        if arrow_xy is None:
+            print("Arrow search could not find the player's arrows")
+            continue
 
-print("Exiting...")
+        bounding_box = get_bounding_box(arrow_xy.values())
+
+        while not keyboard.is_pressed(start_stop_key):
+            img = ImageGrab.grab(bbox=bounding_box)
+            for arrow_id, xy in arrow_xy.items():
+                x, y = xy
+                rgb = img.getpixel((x - bounding_box[0], y - bounding_box[1]))
+                if arrow.is_active(rgb):
+                    press_key[arrow_id]()
+                    print_key[arrow_id]()
+                    time.sleep(loop_sleep_ms / 1000)
+
+        print("Stopping")
+
+    print("Exiting...")
