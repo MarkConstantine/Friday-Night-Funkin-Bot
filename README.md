@@ -1,6 +1,6 @@
 # Friday Night Funkin Bot
 
-A bot designed to play the [Friday Night Funkin](https://ninja-muffin24.itch.io/funkin) rhythm game with up to 99% accuracy for most songs _(Week 6 not supported 😢)_. Works with any resolution with or without fullscreen!
+A bot designed to play the [Friday Night Funkin](https://ninja-muffin24.itch.io/funkin) rhythm game _(Week 6 not supported 😢)_. Works with any resolution with or without fullscreen!
 
 ![The bot owning a bsides](docs/example.gif)
 
